@@ -20,7 +20,13 @@
     <li class="nav-item">
       <a class="nav-link" href="/visitorrecordings">Visitor Recordings</a>
     </li>
+    <li>
+      <hr>
+    </li>
     <li class="nav-item">
-      <a class="nav-link" href="/websites">Websites</a>
+      <a class="nav-link" href="/websites">My websites</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/users">My account</a>
     </li>
 </ul>

@@ -1,24 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'Websites')
+@section('title', 'Users')
 
-<link href="{{ asset('css/websites.css') }}" rel="stylesheet" />
+<link href="{{ asset('css/users.css') }}" rel="stylesheet" />
 
 @section('content')
     <div class="card mt-4">
-        <div class="card-header">Websites</div>
+        <div class="card-header">Users</div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="websites-table" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <table id="users-table" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                         <th class="th-sm">Id
                         </th>
-                        <th class="th-sm">Created by
-                        </th>
                         <th class="th-sm">Name
                         </th>
-                        <th class="th-sm">Url
+                        <th class="th-sm">Username
                         </th>
                         <th class="th-sm">Created at
                         </th>
@@ -34,21 +32,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($websites as $website)
-                        <tr class="website-row">
-                            <td>{{ $website->id }}</td>
-                            <td>{{ $website->username }}</td>
-                            <td>{{ $website->website_name }}</td>
-                            <td>{{ $website->website_url }}</td>
-                            <td>{{ $website->created_at }}</td>
-                            <td>{{ $website->updated_at }}</td>
+                    @foreach($users as $user)
+                        <tr class="user-row">
+                            <td>{{ $user->id }}</td>
+                            <?php
+                            if($user->id == Auth::user()->id) { ?>
+                                <td>{{ $user->name }} (you)</td>
+                            <?php } 
+                            else { ?>
+                                <td>{{ $user->name }}</td>
+                            <?php } ?>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->updated_at }}</td>
                                                      
                             <td class="hide">
                                 <div class="action-menu-content">
-                                    <div class="action-menu-content-row"><a href="/websites/{{ $website->id }}/edit"><i class="far fa-edit"></i> Edit</a></div>
-                                    <div class="action-menu-content-row"><a href="/websites/share{{ $website->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
+                                    <div class="action-menu-content-row"><a href="/users/{{ $user->id }}/edit"><i class="far fa-edit"></i> Edit</a></div>
+                                    <div class="action-menu-content-row"><a href="/users/share{{ $user->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
                                     <div class="action-menu-content-row">
-                                        <form action="/websites/{{ $website->id }}" method="post" class="website-delete-form">
+                                        <form action="/users/{{ $user->id }}" method="post" class="user-delete-form">
                                             @method('DELETE')
                                             @csrf
                                             <button><i class="far fa-trash-alt"></i> Delete</button>
@@ -62,32 +65,33 @@
                 </table>
 
                 <script>
-                    //$('#websites-table').tablesort();
+                    //$('#users-table').tablesort();
 
 
-                    $('.website-row').click(function(e) {
+                    $('.user-row').click(function(e) {
+                        console.log(e.target);
                         $(this).find('.action-menu-content').css({'top' : e.clientY +'px', 'left' : e.clientX + 'px'});
                         if($(this).hasClass('show')) {
-                            $('.website-row').removeClass('show');
+                            $('.user-row').removeClass('show');
                         }
                         else {
-                            $('.website-row').removeClass('show');
+                            $('.user-row').removeClass('show');
                             $(this).addClass('show');
                         }
                     });
 
                     document.addEventListener("click", function(event) {
                         // If user clicks inside the element, do nothing
-                        if (event.target.closest(".website-row")) return;
+                        if (event.target.closest(".user-row")) return;
 
                         // If user clicks outside the element, hide it!
-                        $('.website-row').removeClass('show');
+                        $('.user-row').removeClass('show');
                     });
 
                 </script>
             
                 <div>
-                    <a class="btn btn-sm btn-dark" href="/websites/create">Add new website</a>
+                    <a class="btn btn-sm btn-dark" href="/users/create">Add new user</a>
                 </div>
 
                 

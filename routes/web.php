@@ -28,7 +28,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
+Route::get('/users/create', 'UserController@create');
+Route::get('/users', 'UserController@index');
+
+Route::get('/users/{user}/edit', 'UserController@edit');
 
 Route::get('/websites/create', 'WebsiteController@create');
 Route::get('/websites', 'WebsiteController@index');

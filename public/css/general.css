@@ -27,6 +27,10 @@
     display:block;
 }
 
+.action-menu-content form {
+    margin-bottom:0;
+}
+
 .action-menu-content-row {
     margin: 0 5px;
     padding: 5px;
@@ -45,6 +49,12 @@
     background:none;
     border:none;
     padding:0;
+    color: #3490dc;
+}
+
+.action-menu-content-row button:hover {
+    color: #1d68a7;
+    text-decoration: underline;
 }
 
 th.hide {
