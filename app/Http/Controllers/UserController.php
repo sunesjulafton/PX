@@ -43,4 +43,30 @@ class UserController extends Controller
     public function edit(User $user) {
         return view('user.edit', compact('user'));
     }
+
+    public function store() {
+        $user->update($this->validatedData());
+        // $data['user_id'] = auth()->user()->id;
+        // $questionnaire = \App\Questionnaire::create($data);
+        //$user = auth()->user()->websites()->create($data);
+        //return redirect('/websites/'.$website->id);
+        return redirect('/users');
+    }
+
+    public function update(User $user) {
+        $user->update($this->validatedData());
+        return redirect('/users');
+    }
+
+    public function destroy(User $user) {
+        //$website->answers()->delete();
+        $user->delete();
+        return redirect('/users');
+    }
+
+    protected function validatedData() {
+        return request()->validate([
+            'name' => 'required',
+        ]);
+    }
 }

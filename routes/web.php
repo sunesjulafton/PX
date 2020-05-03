@@ -32,6 +32,11 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/users/create', 'UserController@create');
 Route::get('/users', 'UserController@index');
+Route::post('/users', 'UserController@store');
+//Route::get('/users/{user}', 'UserController@show');
+Route::get('/users/{user}/edit', 'UserController@edit');
+Route::patch('/users/{user}', 'UserController@update');
+Route::delete('/users/{user}', 'UserController@destroy');
 
 Route::get('/users/{user}/edit', 'UserController@edit');
 

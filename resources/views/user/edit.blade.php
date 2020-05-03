@@ -15,26 +15,16 @@
                         @csrf
                         
                         <div class="form-group">
-                            <label for="user_name">Change user Name</label>
-                            <input name="user_name" type="text" class="form-control" id="user_name" aria-describedby="user_nameHelp" autocomplete="off" value="{{ old('user_name') ?? $user->user_name }}">
+                            <label for="name">Change name</label>
+                            <input name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp" autocomplete="off" value="{{ old('name') ?? $user->name }}">
                             
 
-                            @error('user_name')
+                            @error('name')
                                 <small class="text-danger">{{ $message }} </small>
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="user_url">Change user URL</label>
-                            <input name="user_url" type="text" class="form-control" id="user_url" aria-describedby="user_urlHelp"  autocomplete="off" value="{{ old('user_url') ?? $user->user_url }}">
-                            
-
-                            @error('user_url')
-                                <small class="text-danger">{{ $message }} </small>
-                            @enderror
-
-                        </div>
-                    
+                                           
                         <button type="submit" class="btn btn-primary">Save user</button>
                     </form>
                 </div>
