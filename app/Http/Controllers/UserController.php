@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +16,8 @@ class UserController extends Controller
     }
 
     public function create() {
-        return view('user.create');
+        $types = ['admin', 'user', 'guest'];
+        return view('user.create', compact('types'));
     }
 
     public function index()
@@ -44,14 +48,35 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
+   
     public function store() {
-        $user->update($this->validatedData());
+        $data = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'type'=> 'required',
+            
+        ]);
         // $data['user_id'] = auth()->user()->id;
         // $questionnaire = \App\Questionnaire::create($data);
-        //$user = auth()->user()->websites()->create($data);
+
+        
+        //dd($data);
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'type' => $data['type'],
+            'activated_at' => Carbon::now()->toDateTimeString(),
+            
+        ]);
+
+        
+        
         //return redirect('/websites/'.$website->id);
         return redirect('/users');
     }
+
 
     public function update(User $user) {
         $user->update($this->validatedData());

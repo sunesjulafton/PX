@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +40,7 @@ Route::get('/users/{user}/edit', 'UserController@edit');
 Route::patch('/users/{user}', 'UserController@update');
 Route::delete('/users/{user}', 'UserController@destroy');
 
-Route::get('/users/{user}/edit', 'UserController@edit');
+
 
 Route::get('/websites/create', 'WebsiteController@create');
 Route::get('/websites', 'WebsiteController@index');

@@ -18,6 +18,12 @@
                         </th>
                         <th class="th-sm">Username
                         </th>
+                        <th class="th-sm">Type
+                        </th>
+                        <th class="th-sm">Activated at
+                        </th>
+                        <th class="th-sm">Dectivated at
+                        </th>
                         <th class="th-sm">Created at
                         </th>
                         <th class="th-sm">Updated at
@@ -43,13 +49,16 @@
                                 <td>{{ $user->name }}</td>
                             <?php } ?>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->type }}</td>
+                            <td>{{ $user->activated_at }}</td>
+                            <td>{{ $user->deactivated_at }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->updated_at }}</td>
                                                      
                             <td class="hide">
                                 <div class="action-menu-content">
                                     <div class="action-menu-content-row"><a href="/users/{{ $user->id }}/edit"><i class="far fa-edit"></i> Edit</a></div>
-                                    <div class="action-menu-content-row"><a href="/users/share{{ $user->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
+                                    <div class="action-menu-content-row"><a href="/users/share/{{ $user->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
                                     <div class="action-menu-content-row">
                                         <form action="/users/{{ $user->id }}" method="post" class="user-delete-form">
                                             @method('DELETE')

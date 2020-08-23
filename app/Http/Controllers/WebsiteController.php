@@ -6,9 +6,13 @@ use App\User;
 use App\Website;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WebsiteController extends Controller
 {
+
+
+    use SoftDeletes;
 
     public function __construct() {
         $this->middleware('auth');
@@ -24,6 +28,7 @@ class WebsiteController extends Controller
         $websites = User::find(Auth::user()->id)->websites()->orderBy('website_name')->join('users', 'users.id', '=', 'websites.created_by')
         ->select('websites.*', 'users.email as username')->get();
 
+        
         /*
         $users = DB::table('users')
             ->join('contacts', 'users.id', '=', 'contacts.user_id')

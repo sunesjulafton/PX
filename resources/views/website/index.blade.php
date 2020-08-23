@@ -44,9 +44,10 @@
                             <td>{{ $website->updated_at }}</td>
                                                      
                             <td class="hide">
+                                @if (Auth::user()->type == 'admin' || Auth::user()->type == 'user')
                                 <div class="action-menu-content">
                                     <div class="action-menu-content-row"><a href="/websites/{{ $website->id }}/edit"><i class="far fa-edit"></i> Edit</a></div>
-                                    <div class="action-menu-content-row"><a href="/websites/share{{ $website->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
+                                    <div class="action-menu-content-row"><a href="/websites/share/{{ $website->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
                                     <div class="action-menu-content-row">
                                         <form action="/websites/{{ $website->id }}" method="post" class="website-delete-form">
                                             @method('DELETE')
@@ -55,6 +56,7 @@
                                         </form>
                                     </div>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -87,13 +89,16 @@
                 </script>
             
                 <div>
-                    <a class="btn btn-sm btn-dark" href="/websites/create">Add new website</a>
+                    @if (Auth::user()->type == 'admin' || Auth::user()->type == 'user')
+                        <a class="btn btn-sm btn-dark" href="/websites/create">Add new website</a>
+                    @endif
                 </div>
-
                 
             </div>
         </div>
         
     </div>
+    
+    
 
 @endsection

@@ -18,6 +18,7 @@ class CreateWebsitesTable extends Migration
             $table->string('website_name');
             $table->string('website_url');
             $table->BigInteger('created_by');
+            $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });
     }

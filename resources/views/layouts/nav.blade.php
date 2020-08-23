@@ -4,19 +4,19 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/multivariatetests">Multivariate test</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/personalizations">Personalizations</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/popups">Popups</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/surveys">Surveys</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/heatmaps">Heatmaps</a>
-      </li>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/personalizations">Personalizations</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/popups">Popups</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/surveys">Surveys</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/heatmaps">Heatmaps</a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" href="/visitorrecordings">Visitor Recordings</a>
     </li>
@@ -26,7 +26,9 @@
     <li class="nav-item">
       <a class="nav-link" href="/websites">My websites</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/users">My account</a>
-    </li>
+    @if (Auth::user()->type == 'admin')
+      <li class="nav-item">
+        <a class="nav-link" href="/users">My account</a>
+      </li>
+    @endif
 </ul>
