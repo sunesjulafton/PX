@@ -69,7 +69,7 @@ class RegisterController extends Controller
     {
         
         
-        dd($data);
+        //dd($data);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

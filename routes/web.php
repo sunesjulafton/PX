@@ -47,6 +47,13 @@ Route::get('/websites', 'WebsiteController@index');
 Route::post('/websites', 'WebsiteController@store');
 Route::get('/websites/{website}', 'WebsiteController@show');
 Route::get('/websites/{website}/edit', 'WebsiteController@edit');
+
+Route::get('/websites/{website}/manageusers', 'WebsiteController@manageusers');
+Route::post('/websites/{website}/manageusers', 'WebsiteController@removeuser');
+Route::get('/websites/{website}/inviteuser', 'WebsiteController@inviteuser');
+Route::post('/websites/{website}', 'WebsiteController@storeuser');
+
+
 Route::patch('/websites/{website}', 'WebsiteController@update');
 Route::delete('/websites/{website}', 'WebsiteController@destroy');
 

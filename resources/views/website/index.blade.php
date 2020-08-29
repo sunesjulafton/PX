@@ -14,11 +14,11 @@
                         <tr>
                         <th class="th-sm">Id
                         </th>
-                        <th class="th-sm">Created by
-                        </th>
                         <th class="th-sm">Name
                         </th>
                         <th class="th-sm">Url
+                        </th>
+                        <th class="th-sm">Created by
                         </th>
                         <th class="th-sm">Created at
                         </th>
@@ -37,9 +37,15 @@
                     @foreach($websites as $website)
                         <tr class="website-row">
                             <td>{{ $website->id }}</td>
-                            <td>{{ $website->username }}</td>
-                            <td>{{ $website->website_name }}</td>
-                            <td>{{ $website->website_url }}</td>
+                            <td>{{ $website->name }}</td>
+                            <td>{{ $website->url }}</td>
+                            <td>
+                            @if ($website->username == Auth::user()->email)
+                                You
+                            @else
+                                <div style="display:flex; flex-direction:column;"><span>{{ $website->created_by }}</span><span style="font-size:10px;">( {{ $website->username }} )</span></div>
+                            @endif 
+                            </td>
                             <td>{{ $website->created_at }}</td>
                             <td>{{ $website->updated_at }}</td>
                                                      
@@ -48,6 +54,7 @@
                                 <div class="action-menu-content">
                                     <div class="action-menu-content-row"><a href="/websites/{{ $website->id }}/edit"><i class="far fa-edit"></i> Edit</a></div>
                                     <div class="action-menu-content-row"><a href="/websites/share/{{ $website->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
+                                    <div class="action-menu-content-row"><a href="/websites/{{ $website->id }}/manageusers"><i class="far fa-share-square"></i> Manage users</a></div>
                                     <div class="action-menu-content-row">
                                         <form action="/websites/{{ $website->id }}" method="post" class="website-delete-form">
                                             @method('DELETE')

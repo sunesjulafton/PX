@@ -17,6 +17,7 @@ class UserWebsite extends Migration
             $table->id();
             $table->BigInteger('user_id');
             $table->BigInteger('website_id');
+            $table->BigInteger('invited_by')->nullable();
             $table->timestamps();
         });
     }

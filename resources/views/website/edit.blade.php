@@ -16,7 +16,7 @@
                         
                         <div class="form-group">
                             <label for="website_name">Change Website Name</label>
-                            <input name="website_name" type="text" class="form-control" id="website_name" aria-describedby="website_nameHelp" autocomplete="off" value="{{ old('website_name') ?? $website->website_name }}">
+                            <input name="name" type="text" class="form-control" id="website_name" aria-describedby="website_nameHelp" autocomplete="off" value="{{ old('website_name') ?? $website->name }}">
                             
 
                             @error('website_name')
@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label for="website_url">Change Website URL</label>
-                            <input name="website_url" type="text" class="form-control" id="website_url" aria-describedby="website_urlHelp"  autocomplete="off" value="{{ old('website_url') ?? $website->website_url }}">
+                            <input name="url" type="text" class="form-control" id="website_url" aria-describedby="website_urlHelp"  autocomplete="off" value="{{ old('website_url') ?? $website->url }}">
                             
 
                             @error('website_url')

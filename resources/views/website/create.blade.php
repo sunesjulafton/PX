@@ -16,7 +16,7 @@
                         
                         <div class="form-group">
                             <label for="website_name">Enter Website Name</label>
-                            <input name="website_name" type="text" class="form-control" id="website_name" aria-describedby="website_nameHelp" placeholder="Name">
+                            <input name="name" type="text" class="form-control" id="website_name" aria-describedby="website_nameHelp" placeholder="Name">
                             
 
                             @error('website_name')
@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label for="website_url">Enter Website URL</label>
-                            <input name="website_url" type="text" class="form-control" id="website_url" aria-describedby="website_urlHelp" placeholder="URL">
+                            <input name="url" type="text" class="form-control" id="website_url" aria-describedby="website_urlHelp" placeholder="URL">
                             
 
                             @error('website_url')

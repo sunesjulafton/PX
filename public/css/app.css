@@ -1834,6 +1834,7 @@ pre code {
 .table-bordered th,
 .table-bordered td {
   border: 1px solid #dee2e6;
+  vertical-align: middle;
 }
 
 .table-bordered thead th,
@@ -10863,6 +10864,7 @@ a.text-dark:focus {
   .table-bordered th,
   .table-bordered td {
     border: 1px solid #dee2e6 !important;
+    
   }
 
   .table-dark {
