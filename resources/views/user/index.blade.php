@@ -18,7 +18,7 @@
                         </th>
                         <th class="th-sm">Username
                         </th>
-                        <th class="th-sm">Type
+                        <th class="th-sm">Role
                         </th>
                         <th class="th-sm">Activated at
                         </th>
@@ -49,7 +49,7 @@
                                 <td>{{ $user->name }}</td>
                             <?php } ?>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->type }}</td>
+                            <td>{{ $user->roles()->first()->name }}</td>
                             <td>{{ $user->activated_at }}</td>
                             <td>{{ $user->deactivated_at }}</td>
                             <td>{{ $user->created_at }}</td>

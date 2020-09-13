@@ -23,10 +23,12 @@
     <li>
       <hr>
     </li>
+    @if (Auth::user()->can('edit'))
     <li class="nav-item">
       <a class="nav-link" href="/websites">My websites</a>
     </li>
-    @if (Auth::user()->type == 'admin')
+    @endif
+    @if (Auth::user()->can('admin'))
       <li class="nav-item">
         <a class="nav-link" href="/users">My account</a>
       </li>

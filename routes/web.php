@@ -16,15 +16,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 /*
+Route::group(['middleware' => 'role:account_owner'], function() {
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/home', function() {
+ 
+       return 'Welcome Admin';
+       
+    });
+ 
+ });
+*/
+
+
+/*
+Route::get('/roles', function (Request $request) {
+
+    $user = $request->user();
+    dd($user->hasRole('developer')); //will return true, if user has role
+    dd($user->givePermissionsTo('create-tasks'));// will return permission, if not null
+    dd($user->can('create-tasks')); // will return true, if user has permission
+
+    //return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 */
+
+//Route::get('/roles', 'PermissionController@Permission');
 
 
 Auth::routes();
