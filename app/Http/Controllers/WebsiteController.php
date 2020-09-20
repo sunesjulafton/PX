@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
+use App\Account;
 use App\Website;
+use ArrayObject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -26,10 +29,47 @@ class WebsiteController extends Controller
 
     public function index()
     {
+        
         //$websites = Website::orderBy('website_name')->get()->where('user_id', Auth::user()->websites->pivot->user_id)->sortDesc();
+        
+        /*
         $websites = User::find(Auth::user()->id)->websites()->orderBy('name')->join('users', 'users.id', '=', 'websites.created_by')
         ->select('websites.*', 'users.email as username', 'users.name as created_by')->get();
+        */
 
+        $website_ids = [];
+
+        /* fetch users websites */
+        $websites = Website::where('created_by', Auth::user()->id)->join('users', 'users.id', '=', 'websites.created_by')
+        ->select('websites.*', 'users.email as username', 'users.name as created_by')->get();
+
+        foreach($websites as $website) {
+            array_push($website_ids, $website->id);
+        }
+
+
+        if(!isSet($websites)) {
+            $websites = array();
+        }
+
+        /* fetch accounts websites */
+        $accounts = Auth::user()->accounts()->get();
+        foreach($accounts as $account) {
+            
+            $user = User::find($account->id);
+            $current_websites = Website::where('created_by', $user->id)->join('users', 'users.id', '=', 'websites.created_by')
+            ->select('websites.*', 'users.email as username', 'users.name as created_by')->get();
+            foreach($current_websites as $website) {
+                if (!in_array($website->id, $website_ids)) {
+                    $websites->push($website);
+                }
+            }
+            
+        }
+        
+        //dd(Account::where('user_id', Auth::user()->id));
+        
+        //$websites = 
         
         /*
         $users = DB::table('users')
@@ -147,7 +187,12 @@ class WebsiteController extends Controller
     }
     */
     public function inviteuser(Website $website) {
-        return view('website.inviteuser',compact('website'));
+
+        $roles = Role::all();
+        /* exclude account owner*/
+        $roles = $roles->except(1);
+
+        return view('website.inviteuser',compact('website', 'roles'));
     }
 
     public function storeuser(Request $request) {
@@ -156,7 +201,11 @@ class WebsiteController extends Controller
 
         $data = request()->validate([
             'email' => 'required',
+            'role' => 'required'
         ]);
+
+        
+
 
         $email = $request['email'];
         $website_id = $request['website_id'];
@@ -173,6 +222,50 @@ class WebsiteController extends Controller
         if(!empty($user)) {
             
             //$website = Website::where('id', $website_id)->first();
+            $website = Website::find($request['website_id']);
+            $userexist = $website->users()->find($user->id);
+            /* if user has access to website */
+            if(isset($userexist)) {
+                $role = $website->users()->find($userexist->id)->roles()->first();
+                dd($role->name);
+
+                /* check role for website if given higher remove old and set new */
+                $role_id = $role->id;            
+                if($role_id > $request['role']) {
+                    $user->roles()->detach($role);
+                    $user->roles()->attach($data['role']);
+                    dd("ändrat");
+                }
+                else {
+                    dd("This user is already invited as ");
+                }
+            }
+            else {
+
+                //if website created by account where user is invited to
+
+                $accounts =  $user->accounts()->get();
+                foreach($accounts as $account) {
+                    dd($account->users()->websites()->get());
+                }
+
+                
+
+                //$role = $website->users()->find($user->id)->roles()->first();
+            }
+            
+            
+            
+            
+            /*
+            $role = Role::where('id', $data['role'])->first();
+            if($user->hasRole($role->slug)) {
+                dd("User already has role " . $role->name);
+            }
+            else {
+                $user->roles()->attach($data['role']);
+            }    
+            */
 
             $user->websites()->attach($website_id, ['invited_by' => $invited_by]);
            
@@ -216,6 +309,19 @@ class WebsiteController extends Controller
         }
         else {
             /* create user and send email */
+
+
+            $user = User::create([
+                'email' => $data['email'],
+                'password' => Hash::make('dalle2001'),
+                'activated_at' => Carbon::now()->toDateTimeString(),
+            ]);
+
+
+            $account = Account::where('email', Auth::user()->email)->first();
+            $account->users()->attach($user->id);
+
+
         } 
         
 

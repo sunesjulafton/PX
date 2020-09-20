@@ -52,6 +52,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
+Route::get('/accounts', 'AccountController@index');
+Route::get('/accounts/create', 'AccountController@create');
+Route::post('/accounts', 'AccountController@store');
+
 Route::get('/users/create', 'UserController@create');
 Route::get('/users', 'UserController@index');
 Route::post('/users', 'UserController@store');

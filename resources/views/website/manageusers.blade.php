@@ -33,7 +33,7 @@
                         <tr class="website-row">
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->type }}</td>
+                            <td>{{ $website->users($user->id)->first()->roles()->first()->name }}</td>
                             <td>
                                 <div class="action-menu-content-row">
                                     <form action="/websites/{{ $website->id }}/manageusers" method="post" class="website-delete-form">
@@ -75,7 +75,7 @@
                 </script>
             
                 <div>
-                    @if (Auth::user()->type == 'admin' || Auth::user()->type == 'user')
+                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('user'))
                         <a class="btn btn-sm btn-dark" href="/websites/{{$website->id}}/inviteuser">Invite user</a>
                     @endif
                 </div>

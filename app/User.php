@@ -44,6 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function accounts() {
+        return $this->belongsToMany(Account::class)->withTimestamps();
+    }
+
     public function websites() {
         return $this->belongsToMany(Website::class)->withTimestamps();
     }

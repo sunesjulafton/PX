@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Hi {{ Auth::user()->name }}, you are logged in as a {{ Auth::user()->roles->first()->name }}!
+                    Hi {{ Auth::user()->name ?? ''}}, you are logged in as a {{ Auth::user()->roles->first()->name ?? ''}}!
                 </div>
             </div>
         </div>
