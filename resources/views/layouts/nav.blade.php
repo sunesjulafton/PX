@@ -23,12 +23,14 @@
     <li>
       <hr>
     </li>
+    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('user'))
     <li class="nav-item">
       <a class="nav-link" href="/websites">My websites</a>
     </li>
-    @if (Auth::user()->type == 'admin')
+    @endif
+    @if (Auth::user()->hasRole('admin'))
       <li class="nav-item">
-        <a class="nav-link" href="/users">My account</a>
+        <a class="nav-link" href="/accounts">My account</a>
       </li>
     @endif
 </ul>

@@ -100,7 +100,7 @@
                 </script>
             
                 <div>
-                    <a class="btn btn-sm btn-dark" href="/users/create">Add new user</a>
+                    <a class="btn btn-sm btn-dark" href="/accounts/create">Add new user</a>
                 </div>
 
                 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Carbon\Carbon;
+use App\Account;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -27,21 +29,14 @@ class UserController extends Controller
         ->select('websites.*', 'users.email as username')->get();
         */
 
-
         /*
-        $users = DB::table('users')
-            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();
-        */
-
-        $users = DB::table('users')->get();
-
-        //dd($users);
-        //$websites = Auth::user()->websites;
-        //dd($websites);
+        $account =  Auth::user()->accounts()->where('email', Auth::user()->email)->first();
+        if(!empty($account)) {
+            $users = Account::find($account->id)->users()->orderBy('name')->get();
+        }
         return view('user.index', compact('users'));
+        */
+        return redirect('/home');
     }
 
     public function edit(User $user) {

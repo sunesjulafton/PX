@@ -50,7 +50,7 @@
                             <td>{{ $website->updated_at }}</td>
                                                      
                             <td class="hide">
-                                @if (Auth::user()->type == 'admin' || Auth::user()->type == 'user')
+                                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('user'))
                                 <div class="action-menu-content">
                                     <div class="action-menu-content-row"><a href="/websites/{{ $website->id }}/edit"><i class="far fa-edit"></i> Edit</a></div>
                                     <div class="action-menu-content-row"><a href="/websites/share/{{ $website->id }}/edit"><i class="far fa-share-square"></i> Share</a></div>
@@ -96,7 +96,7 @@
                 </script>
             
                 <div>
-                    @if (Auth::user()->type == 'admin' || Auth::user()->type == 'user')
+                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('user'))
                         <a class="btn btn-sm btn-dark" href="/websites/create">Add new website</a>
                     @endif
                 </div>

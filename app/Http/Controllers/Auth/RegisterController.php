@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 
+use App\Account;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Date;
@@ -67,19 +68,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        
-        
-        //dd($data);
-        return User::create([
+        $account = Account::where('email', $data['email'])->first();
+        /* if account does not exist */
+        if(empty($account)) {
+            Account::create([
+                'email' => $data['email'],
+                'name' => $data['email'],
+            ]);
+        }
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            /*'type'=> $data['type'],
-            'activated_at' => Carbon::now()->toDateTimeString(),*/
         ]);
         
+        $account = Account::where('email', $data['email'])->first();
+        $account->users()->attach($user->id);
+        $user->roles()->attach('1');
 
-
-            
+        return $user;
     }
 }
